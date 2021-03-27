@@ -1,2 +1,4 @@
 # semaphore-learning
-Just learning semaphore CI
+
+Just learning semaphore CI.
+
