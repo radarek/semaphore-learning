@@ -16,9 +16,9 @@ blocks:
         commands:
           - checkout
           - sem-version ruby 2.7.2
-          - cache restore
+          - cache restore ruby-2-7-2-gems-$(checksum Gemfile.lock)
           - bundle install --deployment --path vendor/bundle
-          - cache store
+          - cache store ruby-2-7-2-gems-$(checksum Gemfile.lock) vendor/bundle
           - bundle exec rake db:setup
       jobs:
       - name: RSpec
