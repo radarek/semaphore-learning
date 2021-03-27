@@ -41,6 +41,7 @@ blocks:
             - checkout
             - artifact pull workflow simplecov-resultset
             - gem install simplecov --no-document
-            - ruby .semaphore/merge-coverage.rb
+            - ruby .semaphore/merge_coverage.rb
             - zip -r coverage-$SEMAPHORE_GIT_SHA coverage/
+            - artifact push job --expire-in 2w coverage/
             - artifact push job --expire-in 2w coverage-$SEMAPHORE_GIT_SHA.zip
