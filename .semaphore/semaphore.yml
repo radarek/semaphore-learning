@@ -28,9 +28,9 @@ blocks:
           - |
               if [ -d coverage ]; then
                 artifact push job coverage/
-                mkdir simplecov-resultset
-                mv coverage simplecov-resultset/$SEMAPHORE_JOB_ID
-                artifact push workflow --expire-in 2w --force simplecov-resultset
+                mkdir coverage-resultset
+                mv coverage coverage-resultset/$SEMAPHORE_JOB_INDEX
+                artifact push workflow --expire-in 2w --force coverage-resultset
               fi
   - name: Merge coverage
     dependencies: ["Ruby Tests"]
@@ -39,7 +39,7 @@ blocks:
         - name: Merge ruby coverage results
           commands:
             - checkout
-            - artifact pull workflow simplecov-resultset
+            - artifact pull workflow coverage-resultset
             - gem install simplecov --no-document
             - ruby .semaphore/merge_coverage.rb
             - zip -r coverage-$SEMAPHORE_GIT_SHA coverage/

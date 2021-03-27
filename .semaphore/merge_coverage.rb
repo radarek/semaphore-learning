@@ -34,6 +34,6 @@ class InliningFormatter < SimpleCov::Formatter::HTMLFormatter
   end
 end
 
-SimpleCov.collate Dir['simplecov-resultset/*/.resultset.json'] do
+SimpleCov.collate Dir['coverage-resultset/*/.resultset.json'] do
   formatter InliningFormatter
 end
