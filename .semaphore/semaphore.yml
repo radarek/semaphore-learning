@@ -23,5 +23,6 @@ blocks:
       - name: RSpec
         parallelism: 2
         commands:
+          - env
           - rspec_booster --job $SEMAPHORE_JOB_INDEX/$SEMAPHORE_JOB_COUNT
           - artifact push job coverage/
