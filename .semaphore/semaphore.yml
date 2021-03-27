@@ -24,4 +24,10 @@ blocks:
         parallelism: 2
         commands:
           - rspec_booster --job $SEMAPHORE_JOB_INDEX/$SEMAPHORE_JOB_COUNT
-          - artifact push job coverage/
+          - |
+              if [ -d coverage ]; then
+                artifact push job coverage/
+                mkdir simplecov-resultset
+                mv coverage simplecov-resultset/$SEMAPHORE_JOB_ID
+                artifact push workflow --expire-in 2w --force simplecov-resultset
+              fi

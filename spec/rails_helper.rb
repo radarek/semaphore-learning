@@ -7,7 +7,6 @@ if ENV['CI']
   SimpleCov.command_name("rspec_ci_node_#{ENV['SEMAPHORE_JOB_INDEX']}/#{ENV['SEMAPHORE_JOB_COUNT']}")
 end
 
-
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../config/environment', __dir__)
 # Prevent database truncation if the environment is production
