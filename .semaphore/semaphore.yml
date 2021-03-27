@@ -6,7 +6,8 @@ agent:
     os_image: ubuntu1804
 
 blocks:
-  - name: Test
+  - name: Ruby Tests
+    dependencies: []
     task:
       env_vars:
         - name: RAILS_ENV
@@ -31,3 +32,15 @@ blocks:
                 mv coverage simplecov-resultset/$SEMAPHORE_JOB_ID
                 artifact push workflow --expire-in 2w --force simplecov-resultset
               fi
+  - name: Merge coverage
+    dependencies: ["Ruby Tests"]
+    task:
+      jobs:
+        - name: Merge ruby coverage results
+          commands:
+            - checkout
+            - artifact pull workflow simplecov-resultset
+            - gem install simplecov --no-document
+            - ruby .semaphore/merge-coverage.rb
+            - zip -r coverage-$SEMAPHORE_GIT_SHA coverage/
+            - artifact push job --expire-in 2w coverage-$SEMAPHORE_GIT_SHA.zip
