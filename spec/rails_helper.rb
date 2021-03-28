@@ -7,10 +7,9 @@ SimpleCov.start :rails do
     command_name "rspec_ci_node_#{ENV['SEMAPHORE_JOB_INDEX']}/#{ENV['SEMAPHORE_JOB_COUNT']}"
     formatter SimpleCov::Formatter::SimpleFormatter
   else
-    formatter SimpleCov::Formatter::MultiFormatter.new([
-      SimpleCov::Formatter::SimpleFormatter,
-      SimpleCov::Formatter::HTMLFormatter
-    ])
+    formatter SimpleCov::Formatter::MultiFormatter.new(
+      [SimpleCov::Formatter::SimpleFormatter, SimpleCov::Formatter::HTMLFormatter]
+    )
   end
 end
 
