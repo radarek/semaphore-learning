@@ -1,10 +1,17 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
 require 'simplecov'
-SimpleCov.start :rails
-
-if ENV['CI']
-  SimpleCov.command_name("rspec_ci_node_#{ENV['SEMAPHORE_JOB_INDEX']}/#{ENV['SEMAPHORE_JOB_COUNT']}")
+SimpleCov.start :rails do
+  enable_coverage :branch
+  if ENV['CI']
+    command_name "rspec_ci_node_#{ENV['SEMAPHORE_JOB_INDEX']}/#{ENV['SEMAPHORE_JOB_COUNT']}"
+    formatter SimpleCov::Formatter::SimpleFormatter
+  else
+    formatter SimpleCov::Formatter::MultiFormatter.new([
+      SimpleCov::Formatter::SimpleFormatter,
+      SimpleCov::Formatter::HTMLFormatter
+    ])
+  end
 end
 
 ENV['RAILS_ENV'] ||= 'test'

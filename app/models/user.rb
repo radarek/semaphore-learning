@@ -4,6 +4,6 @@ class User < ApplicationRecord
   end
 
   def last_name
-    'last_name'
+    new_record? ? 'last_name' : super
   end
 end
