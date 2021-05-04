@@ -6,6 +6,16 @@ agent:
     os_image: ubuntu1804
 
 blocks:
+  - name: Cache dependencies
+    dependencies: []
+    run:
+      when: "change_in('Gemfile.lock', {default_branch: 'main'})"
+    task:
+      jobs:
+        - name: Cache gems
+          commands:
+            - checkout
+            - echo 'It works'
   - name: Ruby Tests
     dependencies: []
     task:
