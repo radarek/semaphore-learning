@@ -17,7 +17,7 @@ blocks:
             - checkout
             - echo 'It works'
   - name: Ruby Tests
-    dependencies: []
+    dependencies: ['Cache dependencies']
     task:
       env_vars:
         - name: RAILS_ENV
